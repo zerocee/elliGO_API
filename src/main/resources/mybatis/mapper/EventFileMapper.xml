@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coresafety.elligo.restapi.eventfile.mapper.EventFileMapper">
+    <select id="selectEventFiles" resultType="EventFileVO" parameterType="EventFileVO">
+        SELECT
+            *
+        FROM eventFiles
+        WHERE device_id = #{deviceId}
+        <if test='eventGroup != null'>
+            and event_group = #{eventGroup}
+        </if>
+        ORDER BY device_id , event_group , _id;
+    </select>
+
+    <insert id="insertEventFile" parameterType="EventFileVO">
+        INSERT INTO eventFiles
+            (device_id, event_datetime, event_group, org_file_name, file_path, file_name, create_datetime)
+            VALUES
+            (#{deviceId}, NOW(), #{eventGroup}, #{orgFileName}, #{filePath}, #{fileName}, NOW());
+    </insert>
+</mapper>

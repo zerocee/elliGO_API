@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+upload:
+  path: '/data/event_file/'
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 1MB
+      location: /data/event_file/Temp
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    url: jdbc:mysql://54.180.104.32:3306/coresafety_db?characterEncoding=utf8
+    username: coresafety
+    password: 1q2w3e4r
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 5000
+
+
+mybatis:
+  type-aliases-package: com.coresafety.elligo.restapi.eventfile.domain
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+
